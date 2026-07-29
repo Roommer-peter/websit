@@ -1,0 +1,49 @@
+* {
+    width: 50%;
+    background: 10px;
+    background-color: white;
+    box-sizing: border-box;
+    
+}
+
+body {
+   width: 120%;
+   padding: 12px 1vh 5rem;
+   height: 700px ;
+   display: flex;
+   justify-content: center;
+
+    
+    
+}
+
+.cart {
+    padding: 0%;
+    height: 20%;
+    justify-content: center;
+    box-sizing: border-box;
+    background:fixed;
+    top: auto;
+    background-color:antiquewhite;
+    display: flex;
+
+}
+
+.cart-container {
+    width: 100%;
+    padding: 10px;
+    height: 30px 1vh;
+    border: 1cap;
+}
+
+.cart-container:hover {
+    box-sizing: border-box;
+    display: flex;
+    padding: 10px 5vh 1rem;
+    justify-content: center;
+    height: 100%;
+    top: auto;
+    background-image: none;
+}
+
+
