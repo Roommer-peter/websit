@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOYO HOTPOT - ເມນູອາຫານ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+    <style>
+        /* ປຸ່ມລອຍແບບວົງມົນ */
+.btn-view-history {
+    position: fixed;        /* ເຮັດໃຫ້ມັນລອຍຕິດໜ້າຈໍ */
+    bottom: 20px;           /* ຫ່າງຈາກຂອບລຸ່ມ 20px */
+    right: 20px;            /* ຫ່າງຈາກຂອບຂວາ 20px */
+    width: 60px;            /* ຄວາມກວ້າງ */
+    height: 60px;           /* ຄວາມສູງ (ເທົ່າກັນ = ວົງມົນ) */
+    border-radius: 50%;     /* ເຮັດໃຫ້ເປັນວົງມົນ */
+    padding: 0;             /* ເອົາ padding ອອກ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;          /* ໃຫ້ມັນຢູ່ເທິງສຸດຂອງທຸກຢ່າງ */
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); /* ເຮັດໃຫ້ມີແສງເງົາ */
+    transition: all 0.3s ease;
+}
+
+/* ຕອນເອົາເມົ້າຊີ້ (Hover) */
+.btn-view-history:hover {
+    transform: scale(1.1);  /* ຂະຫຍາຍຂຶ້ນນິດໜຶ່ງ */
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+}
+
+/* ປັບໃຫ້ໄອຄອນໃຫຍ່ຂຶ້ນໜ້ອຍໜຶ່ງໃນຮູບແບບວົງມົນ */
+.btn-view-history i {
+    font-size: 1.5rem;
+    margin: 0 !important;   /* ເອົາ margin ອອກເພື່ອໃຫ້ໄອຄອນຢູ່ກາງພໍດີ */
+}
+
+.btn-view-history {
+    animation: pulse-animation 2s infinite;
+}
+@keyframes pulse-animation {
+    0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+    </style>
+
+</head>
+<body>
+
+    <div class="container menu-container">
+        <header class="menu-header">
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i> ກັບຄືນ</a>
+            <div class="menu-logo-wrapper">
+                <img src="images/Gemini_Generated_Image_71g6dq71g6dq71g6.png" alt="YOYO HOTPOT Logo" class="menu-logo">
+            </div>
+            <div class="menu-title">
+                <h2>YOYO HOTPOT</h2>
+                <p>ລາຍການສັ່ງອາຫານເພີ່ມ - ຫ້ອງ VIP 17</p>
+            </div>
+        </header>
+
+        <div class="categories-container">
+    <div class="category-item active" data-category="ທັງໝົດ"><i class="fa-solid fa-list"></i><span>ທັງໝົດ</span></div>
+    <div class="category-item" data-category="ນ້ຳຊຸບ"><i class="fa-solid fa-bowl-hot"></i><span>ນ້ຳຊຸບ</span></div>
+    <div class="category-item" data-category="ເນື້ອສັດ"><i class="fa-solid fa-drumstick-bite"></i><span>ເນື້ອສັດ</span></div>
+    <div class="category-item" data-category="ເສັ້ນ"><i class="fa-solid fa-wheat-awn"></i><span>ເສັ້ນ</span></div>
+    <div class="category-item" data-category="ຜັກ"><i class="fa-solid fa-seedling"></i><span>ຜັກ</span></div>
+    <div class="category-item" data-category="ເຂົ້າ"><i class="fa-solid fa-bowl-rice"></i><span>ເຂົ້າ</span></div>
+    <div class="category-item" data-category="ເຄື່ອງດື່ມ"><i class="fa-solid fa-whiskey-glass"></i><span>ເຄື່ອງດື່ມ</span></div>
+</div>
+
+<div class="search-box">
+    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    <input type="text" id="searchInput" placeholder="ຄົ້ນຫາເມນູອາຫານທີ່ທ່ານຕ້ອງການ...">
+</div>
+
+<main class="food-grid" id="foodGrid">
+    </main>
+
+<div id="cartBar" class="cart-summary-bar">
+    <div class="cart-info">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span>ເລືອກແລ້ວ <b id="cartCount">0</b> ລາຍການ</span>
+    </div>
+    <button class="view-cart-btn" onclick="sendOrder()">ສົ່ງລາຍການສັ່ງອໍເດີ້ <i class="fa-solid fa-paper-plane"></i></button>
+</div>
+
+<button onclick="viewMyOrders(); openHistoryModal();" 
+        class="btn-view-history" 
+        title="ປະຫວັດການສັ່ງ">
+    <i class="fas fa-receipt"></i>
+</button>
+
+<script src="menu.js"></script>
+
+    <script src="menu.js"></script>
+    <script>
+        // ==========================================
+// ລະບົບຄລິກລາກເລື່ອນໝວດໝູ່ (Drag to Scroll) ສຳລັບຄອມພິວເຕີ
+// ==========================================
+const slider = document.querySelector('.categories-container');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+if (slider) {
+    // ຕອນກົດເມົາສ໌ລົງ
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.style.cursor = 'grabbing'; // ປ່ຽນຮູບເມົາສ໌ເປັນຮູບກຳມື
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    // ຕອນເອົາເມົາສ໌ອອກຈາກກ່ອງ
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.style.cursor = 'pointer';
+    });
+
+    // ຕອນປ່ອຍປຸ່ມເມົາສ໌
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.style.cursor = 'pointer';
+    });
+
+    // ຕອນລາກເມົາສ໌ໄປຊ້າຍ-ຂວາ
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return; // ຖ້າບໍ່ໄດ້ກົດຄລິກຄ້າງໄວ້ ແມ່ນບໍ່ໃຫ້ເຮັດວຽກ
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // ຄູນ 2 ເພື່ອໃຫ້ມັນເລື່ອນໄວຂຶ້ນຕາມມື
+        slider.scrollLeft = scrollLeft - walk;
+    });
+}
+
+// ຟັງຊັນດຶງປະຫວັດການສັ່ງອາຫານຂອງໂຕະນີ້ (ເວີຊັ່ນປັບປຸງໃໝ່)
+async function viewMyOrders() {
+    const tableNumber = "ຫ້ອງ VIP 17"; // 💡 ແນະນຳ: ໃຫ້ດຶງຈາກຕົວແປເບີໂຕະຈິງທີ່ມີໃນລະບົບ menu.php ຂອງເຈົ້າ
+    const container = document.getElementById('historyContainer');
+    if (!container) return;
+
+    // 1. ສະແດງຂໍ້ຄວາມກຳລັງໂຫຼດ
+    container.innerHTML = `
+        <div class="text-center text-gray-400 py-8 flex flex-col items-center gap-2">
+            <span class="text-2xl animate-spin">⏳</span>
+            <span>ກຳລັງໂຫຼດປະຫວັດການສັ່ງ...</span>
+        </div>`;
+    
+    // 2. ✅ [ແກ້ໄຂ]: ເປີດ Pop-up ໂດຍໃຊ້ຄລາສ active ໃຫ້ກົງກັບ CSS ໃໝ່ (ເຮັດໃຫ້ມີ Effect ງາມໆ)
+    document.getElementById('historyModal').classList.add('active');
+
+    try {
+        // ຍິງ GET API ໄປຫາ PHP ພ້ອມສົ່ງເບີໂຕະໄປນຳ
+        const response = await fetch(`api/get_table_orders.php?table_number=${encodeURIComponent(tableNumber)}`);
+        
+        if (!response.ok) {
+            throw new Error(`Server Error Status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+
+        if (result.success && result.orders.length > 0) {
+            let html = "";
+
+            // 3. ໄລ່ແຕ້ມແຕ່ລະອໍເດີ້
+            result.orders.forEach((order) => {
+                const time = new Date(order.created_at).toLocaleTimeString('lo-LA', {hour: '2-digit', minute:'2-digit'});
+                
+                // ກວດເຊັກສະຖານະເພື່ອໃສ່ສີ Badge
+                let statusBadge = `<span class="bg-amber-600/30 text-amber-400 text-xs px-2.5 py-1 rounded-full border border-amber-500/20 font-medium">⏳ ກຳລັງເຮັດ</span>`;
+                if (order.status === 'served') {
+                    statusBadge = `<span class="bg-emerald-600/30 text-emerald-400 text-xs px-2.5 py-1 rounded-full border border-emerald-500/20 font-medium">✅ ເສີບແລ້ວ</span>`;
+                }
+
+                // 4. ແຕ້ມລາຍການອາຫານທາງໃນບິນ
+                let itemsHtml = order.items.map(item => `
+                    <div class="flex justify-between items-center text-sm py-2 border-b border-gray-800/50 last:border-0">
+                        <span class="text-gray-300 font-medium">• ${item.food_name}</span>
+                        <span class="font-bold text-orange-400 bg-orange-950/40 px-2 py-0.5 rounded text-xs">x${item.quantity}</span>
+                    </div>
+                `).join('');
+
+                // 5. ຟໍແມັດລາຄາລວມຂອງບິນນີ້ໃຫ້ມີເຄື່ອງໝາຍຈຸດ ( , )
+                const formattedTotal = Number(order.total_price).toLocaleString('en-US');
+
+                // 6. ✅ [ແກ້ໄຂ]: ໃສ່ຄລາສ order-batch-card ເພື່ອໃຫ້ຮອງຮັບ CSS Responsive (ມືຖື/ຄອມ)
+                html += `
+                    <div class="order-batch-card">
+                        <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-800">
+                            <span class="text-xs text-gray-400 font-medium">🕒 ອໍເດີ້ #${order.id} (${time})</span>
+                            ${statusBadge}
+                        </div>
+                        <div class="space-y-1 mb-3">
+                            ${itemsHtml}
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-dashed border-gray-800 text-xs text-gray-400">
+                            <span>ລາຄາລວມບິນນີ້:</span>
+                            <span class="text-yellow-400 font-bold text-sm">${formattedTotal} ກີບ</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        } else {
+            // ກໍລະນີຍັງບໍ່ມີອໍເດີ້
+            container.innerHTML = `
+                <div class="text-center text-gray-500 py-12 flex flex-col items-center gap-2">
+                    <span class="text-3xl">🫙</span>
+                    <span>ໂຕະນີ້ຍັງບໍ່ມີປະຫວັດການສັ່ງອາຫານເທື່ອ...</span>
+                </div>`;
+        }
+    } catch (error) {
+        console.error("Error fetching table orders:", error);
+        container.innerHTML = `
+            <div class="text-center text-red-400 py-8 flex flex-col items-center gap-2">
+                <span class="text-2xl">❌</span>
+                <span>ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ, ລອງໃໝ່ອີກເທື່ອເດີ້!</span>
+            </div>`;
+    }
+}
+
+// ຟັງຊັນປິດ Modal
+function closeModal(modalId) {
+    // ✅ [ແກ້ໄຂ]: ໃຊ້ classList.remove('active') ເພື່ອໃຫ້ມັນຫາຍໄປແບບມີອານິເມຊັ່ນ Smooth
+    document.getElementById(modalId).classList.remove('active');
+}
+
+// ໃນສ່ວນຂອງ HTML ທີ່ແຕ້ມອໍເດີ້ ໃຫ້ເພີ່ມໄອຄອນເຂົ້າໄປ:
+html += `
+    <div class="order-batch-card">
+        <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-800">
+            <span class="text-xs text-gray-400 font-medium">
+                <i class="far fa-clock mr-1"></i> ${time}
+            </span>
+            ${statusBadge}
+        </div>
+        <div class="space-y-1 mb-3">
+            ${itemsHtml}
+        </div>
+        <div class="flex justify-between items-center pt-2 border-t border-dashed border-gray-800 text-xs text-gray-400">
+            <span><i class="fas fa-tag mr-1"></i> ລາຄາລວມ:</span>
+            <span class="text-yellow-400 font-bold text-sm">${formattedTotal} ກີບ</span>
+        </div>
+    </div>
+`;
+    </script>
+
+</body>
+</html>

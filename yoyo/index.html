@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOYO HOTPOT - VIP ROOM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo-wrapper">
+                <img src="images/Gemini_Generated_Image_71g6dq71g6dq71g6.png" alt="YOYO HOTPOT Logo" class="logo">
+            </div>
+            <div class="room-badge">ຫ້ອງ VIP 17</div>
+        </header>
+
+        <main class="services-grid">
+            
+            <div class="card card-danger" onclick="callStaff('ເອີ້ນພະນັກງານທົ່ວໄປ')">
+                <div class="card-icon">
+                    <i class="fa-solid fa-bell bell-ring"></i>
+                </div>
+                <h3>ເອີ້ນພະນັກງານ</h3>
+                <p>ຕ້ອງການຄວາມຊ່ວຍເຫຼືອທົ່ວໄປ</p>
+            </div>
+
+            <div class="card card-warning" onclick="navigateToMenu()">
+                <div class="card-icon">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <h3>ສັ່ງອາຫານເພີ່ມ</h3>
+                <p>ເລືອກເມນູໝູ, ເນື້ອ, ຜັກ ແລະ ເຄື່ອງດື່ມ</p>
+            </div>
+
+            <div class="card card-primary" onclick="callStaff('ຂໍເຕີມນ້ຳຊຸບ')">
+                <div class="card-icon">
+                    <i class="fa-solid fa-bowl-hot"></i>
+                </div>
+                <h3>ຂໍເຕີມນ້ຳຊຸບ</h3>
+                <p>ເຕີມນ້ຳຊຸບໝ່າລ່າ ຫຼື ຊຸບກະດູກ</p>
+            </div>
+
+            <div class="card card-success" onclick="callStaff('ເອີ້ນເຊັກບິນ / ຊຳລະເງິນ')">
+                <div class="card-icon">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+                <h3>ເອີ້ນເຊັກບິນ</h3>
+                <p>ກວດສອບລາຍການ ແລະ ຊຳລະເງິນ</p>
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <p>© 2026 YOYO HOTPOT VIP System. ທັງໝົດເພື່ອຄວາມສະດວກສະບາຍຂອງທ່ານ.</p>
+        </footer>
+    </div>
+
+    <div id="inputModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modalTitle">ລະບຸຄວາມຕ້ອງການ</h3>
+                <button class="close-btn" onclick="closeModal('inputModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modalDesc">ທ່ານຕ້ອງການໃຫ້ພະນັກງານຊ່ວຍເຫຼືອຫຍັງເພີ່ມເຕີມບໍ?</p>
+                <textarea id="serviceNote" placeholder="ຕົວຢ່າງ: ຂໍຖ້ວຍເພີ່ມ 2 ໃບ, ຂໍທິດຊູ..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="closeModal('inputModal')">ຍົກເລີກ</button>
+                <button class="btn btn-confirm" onclick="submitRequest()">ຢືນຢັນ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-box success-box">
+            <div class="success-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2>ສົ່ງສຳເລັດ!</h2>
+            <p>ພະນັກງານກຳລັງຮີບມາດຳເນີນການໃຫ້ເດີ້ເຈົ້າ</p>
+            <button class="btn btn-confirm" onclick="closeModal('successModal')">ຕົກລົງ</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+       let currentServiceType = ""; // ເກັບປະເພດການເອີ້ນຊົ່ວຄາວ
+
+// 1. ຟັງຊັນເມື່ອກົດປຸ່ມຢູ່ໜ້າເວັບ
+function callStaff(serviceType) {
+    currentServiceType = serviceType;
+    
+    // ປ່ຽນຫົວຂໍ້ Pop-up ຕາມປຸ່ມທີ່ກົດ
+    document.getElementById('modalTitle').innerText = serviceType;
+    document.getElementById('serviceNote').value = ""; // ລ້າງຂໍ້ຄວາມເກົ່າ
+    
+    // ເປີດ Pop-up ປ້ອນຂໍ້ຄວາມ
+    document.getElementById('inputModal').classList.add('active');
+}
+
+// 2. ຟັງຊັນປິດ Pop-up
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+}
+
+// 3. ຟັງຊັນເມື່ອກົດ "ຢືນຢັນ" ໃນ Pop-up ປ້ອນຂໍ້ຄວາມ
+async function submitRequest() {
+    const note = document.getElementById('serviceNote').value;
+    const tableNumber = "ຫ້ອງ VIP 17"; // 💡 ແນະນຳ: ໃຫ້ດຶງຈາກຕົວແປເບີໂຕະ/ຫ້ອງ ທີ່ເຈົ້າມີໃນລະບົບ menu.php
+    
+    // ປິດ Pop-up ປ້ອນຂໍ້ຄວາມ
+    closeModal('inputModal');
+    
+    // ຮວບຮວມຂໍ້ມູນໃຫ້ກົງກັບທີ່ໄຟລ໌ api/call_service.php ແລະ notify.py ຕ້ອງການ
+    const requestData = {
+        table_number: tableNumber,
+        service_type: note ? `${currentServiceType} (${note})` : currentServiceType 
+        // 💡 ຖ້າມີ Note ເພີ່ມເຕີມ ມັນຈະຮວມເຂົ້າໄປ ເຊັ່ນ: "ເຕີມນ້ຳຊຸບ (ເອົານ້ຳຊຸບໝ່າລ່າ)"
+    };
+    
+    console.log("ກຳລັງຍິງຂໍ້ມູນໄປ Backend ເພື່ອບັນທຶກ SQL ແລະ ສົ່ງເຂົ້າ LINE:", requestData);
+    
+    try {
+        // ✅ ເປີດໃຊ້ງານ Fetch ຍິງຫາ API ທີ່ເຮົາສ້າງໄວ້ແທ້
+        const response = await fetch('api/call_service.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Server Error Status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // ✅ ເປີດ Pop-up ຕິກຖືກ (Success) ເມື່ອ Backend ປະມວນຜົນສຳເລັດ
+            document.getElementById('successModal').classList.add('active');
+            
+            // ຕັ້ງເວລາໃຫ້ປິດ Pop-up ເອງອັດຕະໂນມັດຫຼັງຈາກ 3 ວິນາທີ ບໍ່ໃຫ້ລູກຄ້າຄາໜ້ານັ້ນ
+            setTimeout(() => {
+                closeModal('successModal');
+            }, 3000);
+        } else {
+            alert("❌ ບໍ່ສາມາດສົ່ງຄຳຮ້ອງໄດ້: " + result.message);
+        }
+    } catch (error) {
+        console.error("Error submitting service request:", error);
+        alert("❌ ເກີດຂໍ້ຜິດພາດໃນການເຊື່ອມຕໍ່ລະບົບ, ລອງໃໝ່ອີກເທື່ອເດີ້!");
+    }
+}
+    </script>
+</body>
+</html>
